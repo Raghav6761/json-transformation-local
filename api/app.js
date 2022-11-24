@@ -113,48 +113,63 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
 
                     var arr1 = records[i][' Source'].split(" + ");
 
-                    console.log('before for loop', arr1);
+                    // console.log('before for loop', arr1);
 
                     let outStr = '';
                     for (let j = 0; j < arr1.length; j++){
                         arr1[j] = arr1[j].trim();
                         console.log(arr1[j]);
-                        let outInner = '';
+                        var outInner = '';
                         if(arr1[j].substring(0,5)=='ENUM('){
-                            console.log('it has enum');
-                            outInner = ' ENUMSTH ';
+                            // console.log('it has enum');
+                            let enumeration = records[i][' Enumeration'];
+                            // outInner = ' ENUMSTH ';
+                            // console.log('length of arr1[j] is ::::::::::::::', arr1[j].length);
+                            let toCheck = arr1[j].substring(6,arr1[j].length-1);
+                            // console.log('::::::::', enumeration);
+                            let enumArr = enumeration.split(';');
+                            console.log(enumArr,' ::::: dfgh');
+                            let compareWith = json_data[toCheck];
+                            compareWith = "\"" + compareWith + "\"";
+                            enumArr.forEach(element => {
+                                kv = element.split(":");
+                                console.log(kv,compareWith);
+                                if(kv[0]==toCheck){
+                                    outInner = kv[1];
+                                }
+                            });
                         }else if(arr1[j].includes('IF(')){
-                            console.log('has IF');
+                            // console.log('has IF');
                             outInner = ' IF ';
                         }
                         else
                         {
-                            console.log('not enum');
+                            // console.log('not enum');
                             var arr2 = arr1[j].split('.');
                             var arr2len = arr2.length;
                             console.log(arr2);
                             // let tempMap = new Map();
                             // console.log('confirming before starting the loop',json_data.id);
                             
-                            console.log('json data ------',json_data[arr2[1]]);
-                            console.log(arr2.length);
+                            // console.log('json data ------',json_data[arr2[1]]);
+                            // console.log(arr2.length);
                             if(typeof(json_data[arr2[1]]) === 'undefined'){
-                                console.log('in if blocks', 'value of arr2[0]', arr2[0]);
+                                // console.log('in if blocks', 'value of arr2[0]', arr2[0]);
                             // if(arr2len > 1){
                                 var temparr = arr2[0];
                             }
                             else{
                                 var temparr = json_data[arr2[1]];
                             }
-                            console.log('temp arr over here is ',temparr);
+                            // console.log('temp arr over here is ',temparr);
                             // let temparr = tempIn;
                             for(let k=2; k < arr2len; k++){
                                 // if(k==arr2len-1){
 
                                 // }
                                 arr2[k] = arr2[k];
-                                console.log('json would be checked for this ::',arr2[k]);
-                                console.log('json data at this point',temparr);
+                                // console.log('json would be checked for this ::',arr2[k]);
+                                // console.log('json data at this point',temparr);
                                 // outInner+=json_data[arr2[k]]+" ";
                                 temparr = temparr[arr2[k]]
                                 if(typeof(temparr)=="string"){
@@ -171,10 +186,13 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                         // console.log();
                     }
                     outputMap.set(key, outStr);
-                    console.log('The outmap :::::: ',outputMap)
+                    // console.log('The outmap :::::: ',outputMap)
                 }
                 console.log('output map is here !!!! :::: ',outputMap);
                 // Code to iterate through the array - Complete
+
+                // covert the map to json
+                const jsonOut = Object.fromEntries(outputMap);
 
                 // will output a Javascript object
                 // console.log(json_data);
@@ -182,7 +200,7 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                     message: 'records have been altered',
                     records : records,
                     sourceJson : json_data,
-                    output : outputMap
+                    output : jsonOut
                 });
             });
         });
