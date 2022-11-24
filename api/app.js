@@ -130,18 +130,23 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                             let enumArr = enumeration.split(';');
                             console.log(enumArr,' ::::: dfgh');
                             let compareWith = json_data[toCheck];
-                            compareWith = "\"" + compareWith + "\"";
                             enumArr.forEach(element => {
                                 kv = element.split(":");
-                                console.log(kv,compareWith);
-                                if(kv[0]==toCheck){
+                                let sliced = kv[0].slice(1,kv[0].length-1);
+                                console.log(sliced,compareWith);
+                                if(sliced===compareWith){
+                                    console.log('in the if block');
+                                    // outInner = kv[1].slice(1,kv[0].length-1);
                                     outInner = kv[1];
+                                }else{
+                                    console.log('in the else block');
                                 }
                             });
-                        }else if(arr1[j].includes('IF(')){
-                            // console.log('has IF');
-                            outInner = ' IF ';
                         }
+                        // else if(arr1[j].includes('IF(')){
+                        //     // console.log('has IF');
+                        //     outInner = ' IF ';
+                        // }
                         else
                         {
                             // console.log('not enum');
@@ -197,10 +202,11 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                 // will output a Javascript object
                 // console.log(json_data);
                 res.status(201).json({
-                    message: 'records have been altered',
-                    records : records,
-                    sourceJson : json_data,
-                    output : jsonOut
+                    // message: 'here is the target output',
+                    // records : records,
+                    // sourceJson : json_data,
+                    // output : jsonOut
+                    jsonOut
                 });
             });
         });
