@@ -1,0 +1,29 @@
+{
+  "name": "json-transformation-local",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "start:server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raghav6761/json-transformation-local.git"
+  },
+  "keywords": [
+    "hackathon"
+  ],
+  "author": "Raghav Watts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raghav6761/json-transformation-local/issues"
+  },
+  "homepage": "https://github.com/Raghav6761/json-transformation-local#readme"
+}
