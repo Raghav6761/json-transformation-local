@@ -109,9 +109,9 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                     console.log(records[i][' Source']);
                     console.log(records[i][' Enumeration']);
 
-                    let key = records[i]['Target'];
+                    var key = records[i]['Target'].trim();
 
-                    let arr1 = records[i][' Source'].split(" + ");
+                    var arr1 = records[i][' Source'].split(" + ");
 
                     console.log('before for loop', arr1);
 
@@ -123,35 +123,55 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                         if(arr1[j].substring(0,5)=='ENUM('){
                             console.log('it has enum');
                             outInner = ' ENUMSTH ';
-                        }else{
+                        }else if(arr1[j].includes('IF(')){
+                            console.log('has IF');
+                            outInner = ' IF ';
+                        }
+                        else
+                        {
                             console.log('not enum');
-                            arr2 = arr1[j].split('.');
-                            let arr2len = arr2.length;
+                            var arr2 = arr1[j].split('.');
+                            var arr2len = arr2.length;
                             console.log(arr2);
                             // let tempMap = new Map();
                             // console.log('confirming before starting the loop',json_data.id);
-
-                            let temparr = json_data[arr2[1]];
+                            
+                            console.log('json data ------',json_data[arr2[1]]);
+                            console.log(arr2.length);
+                            if(typeof(json_data[arr2[1]]) === 'undefined'){
+                                console.log('in if blocks', 'value of arr2[0]', arr2[0]);
+                            // if(arr2len > 1){
+                                var temparr = arr2[0];
+                            }
+                            else{
+                                var temparr = json_data[arr2[1]];
+                            }
+                            console.log('temp arr over here is ',temparr);
+                            // let temparr = tempIn;
                             for(let k=2; k < arr2len; k++){
                                 // if(k==arr2len-1){
 
                                 // }
-                                arr2[k] = arr2[k].trim();
+                                arr2[k] = arr2[k];
                                 console.log('json would be checked for this ::',arr2[k]);
-                                console.log('json data at this point',json_data[arr2[k]]);
+                                console.log('json data at this point',temparr);
                                 // outInner+=json_data[arr2[k]]+" ";
                                 temparr = temparr[arr2[k]]
                                 if(typeof(temparr)=="string"){
-                                    outInner+=temparr
+                                    // outInner+=temparr
+                                    break;
                                 }
                             }
+                            outInner+=temparr
                             // let k = 1;
                             // let temparr;
                             // console.log('address details', json_data['address']['street']);
                         }
-                        outStr+=outInner;
+                        outStr+=outInner + ' ';
+                        // console.log();
                     }
                     outputMap.set(key, outStr);
+                    console.log('The outmap :::::: ',outputMap)
                 }
                 console.log('output map is here !!!! :::: ',outputMap);
                 // Code to iterate through the array - Complete
@@ -161,7 +181,8 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                 res.status(201).json({
                     message: 'records have been altered',
                     records : records,
-                    sourceJson : json_data
+                    sourceJson : json_data,
+                    output : outputMap
                 });
             });
         });
