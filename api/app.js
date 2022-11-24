@@ -109,27 +109,51 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                     console.log(records[i][' Source']);
                     console.log(records[i][' Enumeration']);
 
+                    let key = records[i]['Target'];
+
                     let arr1 = records[i][' Source'].split(" + ");
 
                     console.log('before for loop', arr1);
+
+                    let outStr = '';
                     for (let j = 0; j < arr1.length; j++){
                         arr1[j] = arr1[j].trim();
                         console.log(arr1[j]);
+                        let outInner = '';
                         if(arr1[j].substring(0,5)=='ENUM('){
                             console.log('it has enum');
+                            outInner = ' ENUMSTH ';
                         }else{
                             console.log('not enum');
                             arr2 = arr1[j].split('.');
-                            let tempMap = new Map();
-                            for(let k=1; k<arr2.length; k++){
-                                arr2[k] = arr2[k].trim;
-                                console.log('json data at this point',json_data.arr2[k]);
+                            let arr2len = arr2.length;
+                            console.log(arr2);
+                            // let tempMap = new Map();
+                            // console.log('confirming before starting the loop',json_data.id);
+
+                            let temparr = json_data[arr2[1]];
+                            for(let k=2; k < arr2len; k++){
+                                // if(k==arr2len-1){
+
+                                // }
+                                arr2[k] = arr2[k].trim();
+                                console.log('json would be checked for this ::',arr2[k]);
+                                console.log('json data at this point',json_data[arr2[k]]);
+                                // outInner+=json_data[arr2[k]]+" ";
+                                temparr = temparr[arr2[k]]
+                                if(typeof(temparr)=="string"){
+                                    outInner+=temparr
+                                }
                             }
-
+                            // let k = 1;
+                            // let temparr;
+                            // console.log('address details', json_data['address']['street']);
                         }
+                        outStr+=outInner;
                     }
-
+                    outputMap.set(key, outStr);
                 }
+                console.log('output map is here !!!! :::: ',outputMap);
                 // Code to iterate through the array - Complete
 
                 // will output a Javascript object
