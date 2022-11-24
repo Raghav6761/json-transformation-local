@@ -97,7 +97,8 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                 json_data = JSON.parse(data);
 
                 // output_data = {};
-                let outputArr = [];
+                // let outputArr = [];
+                let outputMap = new Map();
 
                 // Code to iterate through the array
                 let lenRecord = records.length;
@@ -116,14 +117,15 @@ app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCoun
                         console.log(arr1[j]);
                         if(arr1[j].substring(0,5)=='ENUM('){
                             console.log('it has enum');
+                        }else{
+                            console.log('not enum');
                             arr2 = arr1[j].split('.');
+                            let tempMap = new Map();
                             for(let k=1; k<arr2.length; k++){
                                 arr2[k] = arr2[k].trim;
                                 console.log('json data at this point',json_data.arr2[k]);
-                                
                             }
-                        }else{
-                            console.log('not enum');
+
                         }
                     }
 
