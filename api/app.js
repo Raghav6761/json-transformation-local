@@ -17,7 +17,13 @@ const storage = multer.diskStorage({
         if (isValid){
             error = null;
         }
-        cb(error, "./backend/inputJson");
+
+        if (isValid == 'json'){
+            cb(error, "./backend/inputJson");
+        }
+        if (isValid == 'csv'){
+            cb(error, "./backend/mapping");
+        }
     },
     filename: (req, file, cb) =>{
         const name = file.originalname+'_converted'+Date.now();
@@ -35,7 +41,8 @@ app.use(bodyParser.json());
 //     next();
 // });
 
-app.post('/api/test',multer(storage).single("fila"), (req,res,next)=>{
+// app.post('/api/test',multer({storage: storage}).single("fila"), (req,res,next)=>{
+app.post('/api/test',multer({storage: storage}).fields([{name: 'source', maxCount: 1},{name: 'mapping', maxCount: 1}]), (req,res,next)=>{
     console.log('in the post test');
     console.log(req.body);
     console.log('complete request',req);
@@ -43,7 +50,9 @@ app.post('/api/test',multer(storage).single("fila"), (req,res,next)=>{
         {
             id : req.body.id,
             name: req.body.name,
-            status: req.body.status
+            status: req.body.status,
+            source : req.files.source,
+            mapping : req.files.mapping
         }
     ];
 
