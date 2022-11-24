@@ -8,9 +8,11 @@ const http = require("http");
 
 require('./views/view1.js')(app);
 
-app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css',)))
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
 app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+
+app.use('/custom', express.static(path.join(__dirname, 'views')))
 
 
 
