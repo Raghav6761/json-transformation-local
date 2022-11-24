@@ -1,6 +1,18 @@
 const app = require("./api/app");
+
+const express = require("express");
+const path = require('path');
+
 const debug = require("debug")("node-angular");
 const http = require("http");
+
+require('./views/view1.js')(app);
+
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+
+
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
