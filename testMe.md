@@ -2,10 +2,10 @@
 
 ## Technologies Used:
 + Front End:
-+ HTML, CSS, Javascript and Bootstrap
+    + HTML, CSS, Javascript and Bootstrap
     
 + Back End:
-+ NodeJs and Express
+    + NodeJs and Express
 
 ## Packages and Dependencies
 +    "body-parser": "^1.20.1",
