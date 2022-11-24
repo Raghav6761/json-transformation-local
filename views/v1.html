@@ -16,70 +16,62 @@
     <link rel="stylesheet" href="./custom/v1.css">
 </head>
 <body>
-
-    <div class="jumbotron text-center">
-        <div class="row">
-            <h1>TRANSFORMER</h1>
-        </div>
-        <div class="row">
-            <div class="col-sm-12" style=" white-space: pre;" >
-                <h3>JSON SOURCE        >>>>>>>>>>>     JSON DESTINATION</h3> 
-            </div>
-        </div>
-        
+  <div class="jumbotron text-center">
+    <div class="row">
+      <h1>TRANSFORMER</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-12" style=" white-space: pre;" >
+        <h3>JSON SOURCE        >>>>>>>>>>>     JSON DESTINATION</h3> 
       </div>
+    </div>
         
-      <div class="container">
-        <FORM>
-            <div class="row">
-            <div class="col-sm-6 text-center">
-                <h3>SOURCE</h3>
-            
-                
-                    <div class="form-group">
-                        <!-- <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="customFile1" name="filename">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                          </div> -->
+  </div>
+        
+  <div class="container">
+    <form action="api/test" method="post" enctype="multipart/form-data">
 
-                          <div class="text-center">
-                            <label for="customFile1" class="form-label"></label>
-                            <input class="form-control form-control-lg" id="customFile1" type="file">
-                          </div>
-                    </div>
+    <!-- </form>
+    <form> -->
+      <div class="row">
+        <div class="col-sm-6 text-center">
+          <h3>SOURCE</h3>      
+          <div class="form-group">
+            <!-- <div class="custom-file mb-3">
+              <input type="file" class="custom-file-input" id="customFile1" name="filename">
+              <label class="custom-file-label" for="customFile">Choose file</label>
+            </div> -->
 
-                    
-                   
-                  
-                
+            <div class="text-center">
+              <label for="customFile1" class="form-label"></label>
+              <input class="form-control form-control-lg" id="customFile1" name="source" type="file">
             </div>
-            <div class="col-sm-6 text-center">
-                <h3>MAPPING</h3>
-                <div class="form-group">
-                    <!-- <div class="custom-file mb-3">
-                        <input type="file" class="custom-file-input" id="customFile2" name="filename">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                      </div> -->
-
-                      <div class="text-center">
-                        <label for="customFile2" class="form-label"></label>
-                        <input class="form-control form-control-lg" id="customFile2" type="file">
-                      </div>
-                  </div>
-            </div>
-            </div>
-            
-
-        </FORM>
-
-        <div class="row center-button">
-          <div class = "col-sm-4">
-            <button  type='button' class="button" id = "upload"><span>GO </span></button>
           </div>
-          
         </div>
+        <div class="col-sm-6 text-center">
+          <h3>MAPPING</h3>
+          <div class="form-group">
+            <!-- <div class="custom-file mb-3">
+              <input type="file" class="custom-file-input" id="customFile2" name="filename">
+              <label class="custom-file-label" for="customFile">Choose file</label>
+            </div> -->
+
+            <div class="text-center">
+              <label for="customFile2" class="form-label"></label>
+              <input class="form-control form-control-lg" id="customFile2" name="mapping" type="file">
+            </div>
+          </div>
         </div>
       </div>
+    <!-- </form> -->
+
+      <div class="row center-button">
+        <div class = "col-sm-4">
+          <button  type='submit' class="button" id = "upload"><span>GO </span></button>
+        </div>  
+      </div>
+    </form>
+  </div>
         
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity=
